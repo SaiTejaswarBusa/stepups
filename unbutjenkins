@@ -1,38 +1,14 @@
-#! /bin/bash
-sudo apt update -y
-sudo apt install -y openjdk-17-jdk
-java -version
 #!/bin/bash
-
-# Update system packages
 sudo apt update -y
-
-# Install Java (Jenkins requires Java 11+; Java 17 is fine)
 sudo apt install -y openjdk-17-jdk
-
-# Verify Java installation
 java -version
-
-# Add Jenkins repository key
 curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee \
   /usr/share/keyrings/jenkins-keyring.asc > /dev/null
-
-# Add Jenkins apt repository
 echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
   https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
   /etc/apt/sources.list.d/jenkins.list > /dev/null
-
-# Update package lists again
 sudo apt update -y
-
-# Install Jenkins
 sudo apt install -y jenkins
-
-# Enable Jenkins to start at boot
 sudo systemctl enable jenkins
-
-# Start Jenkins service
 sudo systemctl start jenkins
-
-# Check Jenkins status
 sudo systemctl status jenkins --no-pager
